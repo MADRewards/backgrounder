@@ -20,14 +20,29 @@ module.exports = function (params) {
     }
   }
 
-  var cropToOnePixel = function (callback) {
+  var getSize = function (callback) {
+    gm(params.image)
+      .size(function (err, value) {
+        console.log(value);
+        callback(value);
+      });
+  }
+  getSize(function () {});
+
+  var trimEdges = function () {
     gm(params.image)
       .crop(params.width, params.height, params.x, params.y)
-      .colorspace('RGB')
-      .toBuffer('JPG', function (err, buffer) {
-        callback(buffer);
-      });
-  };
+  }
+
+  var cropToOnePixel =
+    function (callback) {
+      gm(params.image)
+        .crop(params.width, params.height, params.x, params.y)
+        .colorspace('RGB')
+        .toBuffer('JPG', function (err, buffer) {
+          callback(buffer);
+        });
+    };
 
   var getAverageCanvasColor = function (buffer, callback) {
     gm(buffer, 'image.jpg')
