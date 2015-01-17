@@ -4,7 +4,7 @@
 
 ![](http://media.giphy.com/media/Adqe9XUP3x9LO/giphy.gif)
 
-![](http://cl.ly/ZLmh/Screen%20Shot%202015-01-17%20at%203.07.24%20PM.png)
+[![](http://cl.ly/ZLmh/Screen%20Shot%202015-01-17%20at%203.07.24%20PM.png)](https://github.com/dubli/backgrounder/tree/example)
 
 <hr>
 
