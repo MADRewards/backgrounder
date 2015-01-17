@@ -5,10 +5,10 @@ module.exports = function (params) {
   var gm = require('gm');
   var defaults = {
     image: './path/to/image/foo.gif', // supports gif, png, jpg
-    x: 5, // x, y: Coordintes from the top left corner for color sample
-    y: 5,
-    width: 100, // width, height: Span of the area to sample and average
-    height: 100,
+    x: 2, // x, y: Coordintes from the top left corner for color sample
+    y: 2,
+    width: 2, // width, height: Span of the area to sample and average
+    height: 2,
     callback: function (rgb) {
       console.log('Done! rgb:' + rgb);
     }
