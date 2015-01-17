@@ -8,7 +8,11 @@
         "backgrounder/node_modules"
       ],
       "file_exclude_patterns": [
-        "backgrounder/*.sublime*"
+        "*.gif",
+        "*.jpeg",
+        "*.jpg",
+        "*.png",
+        "*.sublime*"
       ]
     }
   ]
