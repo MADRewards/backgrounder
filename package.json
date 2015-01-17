@@ -1,0 +1,24 @@
+{
+  "author": {
+    "url": "https://github.com/dubli/frontend/graphs/contributors"
+  },
+  "bugs": {
+    "url": "https://github.com/diblu/issues/issues"
+  },
+  "dependencies": {
+    "gm": "^1.17.0",
+    "q": "^1.1.2"
+  },
+  "description": "Guess a key branding color of a logo",
+  "main": "index.js",
+  "name": "backgrounder",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dubli/backgrounder.git"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.0.1"
+}
