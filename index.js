@@ -49,7 +49,6 @@ module.exports = function (params) {
             );
           }
         } else {
-          console.log(data, 'no data');
           rgb = [255, 255, 255];
         }
         callback(rgb);
