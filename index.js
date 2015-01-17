@@ -20,15 +20,6 @@ module.exports = function (params) {
     }
   }
 
-  var getSize = function (callback) {
-    gm(params.image)
-      .size(function (err, value) {
-        console.log(value);
-        callback(value);
-      });
-  }
-  getSize(function () {});
-
   var cropToOnePixel = function (callback) {
     gm(params.image)
       .crop(params.width, params.height, params.x, params.y)
@@ -53,12 +44,8 @@ module.exports = function (params) {
             rgb = ['Red', 'Green', 'Blue'];
           }
           for (var i = 0; i < rgb.length; i++) {
-            // console.log('---------------------');
-            // console.log(params.image);
-            // console.log(stats);
-            // console.log('---------------------');
             rgb[i] = Math.round(
-              stats[rgb[i]]['Mean'].split(' ')[0]
+              stats[rgb[i]].Mean.split(' ')[0]
             );
           }
         } else {
