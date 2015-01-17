@@ -1,12 +1,11 @@
 {
-  "name": "color-finder",
+  "name": "backgrounder-example",
   "version": "1.0.0",
-  "description": "",
+  "description": "An example of backgrounder",
   "main": "index.js",
   "dependencies": {
     "backgrounder": "git+ssh://git@github.com:dubli/backgrounder",
     "express": "^4.11.0",
-    "gm": "^1.17.0",
     "q": "^1.1.2"
   },
   "devDependencies": {},
