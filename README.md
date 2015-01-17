@@ -1,6 +1,6 @@
 # Backgrounder
 
-Tkes logos and tries to make em’ blend in
+**Takes logos and tries to make em’ blend in!**
 
 ![](http://media.giphy.com/media/Adqe9XUP3x9LO/giphy.gif)
 
