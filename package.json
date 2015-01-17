@@ -1,24 +1,18 @@
 {
-  "author": {
-    "url": "https://github.com/dubli/frontend/graphs/contributors"
-  },
-  "bugs": {
-    "url": "https://github.com/diblu/issues/issues"
-  },
+  "name": "color-finder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "dependencies": {
+    "backgrounder": "git+ssh://git@github.com:dubli/backgrounder",
+    "express": "^4.11.0",
     "gm": "^1.17.0",
     "q": "^1.1.2"
   },
-  "description": "Guess a key branding color of a logo",
-  "main": "index.js",
-  "name": "backgrounder",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/dubli/backgrounder.git"
-  },
+  "devDependencies": {},
   "scripts": {
-    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "0.0.1"
+  "author": "",
+  "license": "ISC"
 }

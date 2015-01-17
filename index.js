@@ -1,77 +1,72 @@
-/* global console, module, require */
+/*jshint multistr: true, node: true */
+'use strict';
 
-module.exports = function (params) {
-  'use strict';
-  var gm = require('gm');
-  var defaults = {
-    image: './path/to/image/foo.gif', // supports gif, png, jpg
-    x: 5, // x, y: Coordintes from the top left corner for color sample
-    y: 5,
-    width: 100, // width, height: Span of the area to sample and average
-    height: 100,
-    callback: function (rgb) {
-      console.log('Done! rgb:' + rgb);
-    }
-  };
+var backgrounder = require('backgrounder');
+var express = require('express');
+var fs = require('fs');
+var q = require('q');
 
-  for (var property in defaults) {
-    if (!params.hasOwnProperty(property)) {
-      params[property] = defaults[property];
-    }
-  }
+var app = module.exports = express();
+var port = process.env.PORT || 8002;
+var staticServer = './images';
 
-  var getSize = function (callback) {
-    gm(params.image)
-      .size(function (err, value) {
-        console.log(value);
-        callback(value);
-      });
-  }
-  getSize(function () {});
+app.use(express.static(staticServer));
 
-  var cropToOnePixel = function (callback) {
-    gm(params.image)
-      .crop(params.width, params.height, params.x, params.y)
-      .colorspace('RGB')
-      .toBuffer('JPG', function (err, buffer) {
-        callback(buffer);
-      });
-  };
+app.get('/', function (req, res) {
 
-  var getAverageCanvasColor = function (buffer, callback) {
-    gm(buffer, 'image.jpg')
-      .identify(function (err, data) {
-        var rgb = [];
-        if (data.hasOwnProperty('Channel Statistics')) {
-          var stats = data['Channel Statistics'];
-          if (
-            stats.hasOwnProperty('Gray') &&
-            !stats.hasOwnProperty('Red')
-          ) {
-            rgb = ['Gray', 'Gray', 'Gray'];
-          } else {
-            rgb = ['Red', 'Green', 'Blue'];
-          }
-          for (var i = 0; i < rgb.length; i++) {
-            // console.log('---------------------');
-            // console.log(params.image);
-            // console.log(stats);
-            // console.log('---------------------');
-            rgb[i] = Math.round(
-              stats[rgb[i]]['Mean'].split(' ')[0]
-            );
-          }
-        } else {
-          console.log(data, 'no data');
-          rgb = [255, 255, 255];
-        }
-        callback(rgb);
-      });
-  };
-
-  cropToOnePixel(function (buffer) {
-    getAverageCanvasColor(buffer, function (rgb) {
-      params.callback(rgb);
+  var showLogoOnCanvas = function (filename) {
+    var deferred = q.defer();
+    backgrounder({
+      image: __dirname + '/images/' + filename,
+      callback: function (color) {
+        var rgb = 'rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ')';
+        deferred.resolve('\
+          <div style="\
+            background-color: ' + rgb + '; \
+            float: left; \
+            height: 200px;\
+            position: relative;\
+            width: 200px;\
+            ">\
+            <div style="\
+              background-image: url(' + filename + '); \
+              background-position: center; \
+              background-repeat: no-repeat; \
+              background-size: contain; \
+              bottom: 0; \
+              height: 60px; \
+              left: 0; \
+              margin: auto; \
+              position: absolute; \
+              right: 0; \
+              top: 0; \
+              width: 120px;\
+              ">\
+            </div>\
+          </div>\
+        ');
+      }
     });
-  });
-};
+    return deferred.promise;
+  };
+
+  var promises = [];
+  fs.readdir(staticServer,
+    function (err, files) {
+      for (var i = files.length - 1; i >= 0; i--) {
+        promises.push(showLogoOnCanvas(files[i]));
+      }
+      q.all(promises).then(function (suggestions) {
+        var html = '';
+        for (var i = suggestions.length - 1; i >= 0; i--) {
+          html += suggestions[i];
+        }
+        res.send(html);
+      });
+    });
+
+});
+
+app.listen(port, function () {
+  return console.log('Listening on port ' + port);
+});
